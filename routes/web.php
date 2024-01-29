@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::post('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
 Route::post('/ideas', [IdeaController::class, 'store'])->name('ideas.store');
 
-Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
 
 Route::get('/profile', [ProfileController::class, 'index']);
 

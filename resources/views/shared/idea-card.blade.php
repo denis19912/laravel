@@ -9,7 +9,11 @@
                         </a></h5>
                 </div>
             </div>
-            <div>
+            <div class="d-flex p-2">
+                <form method="POST" action="{{ route('ideas.show', $idea->id)}}">
+                    @csrf
+                    <button class="btn btn-success btn-sm">Show</button>
+                </form>
                 <form method="POST" action="{{ route('ideas.destroy', $idea->id)}}">
                     @csrf
                     @method('delete')
