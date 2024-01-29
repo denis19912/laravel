@@ -10,11 +10,13 @@
                 </div>
             </div>
             <div class="d-flex p-2">
-                <form method="POST" action="{{ route('ideas.show', $idea->id)}}">
-                    @csrf
+                <a href="{{ route('ideas.show', $idea->id) }}">
                     <button class="btn btn-success btn-sm">Show</button>
-                </form>
-                <form method="POST" action="{{ route('ideas.destroy', $idea->id)}}">
+                </a>
+                <a href="{{ route('ideas.edit', $idea->id) }}">
+                    <button class="btn btn-warning btn-sm">Edit</button>
+                </a>
+                <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger btn-sm">Delete</button>
@@ -23,9 +25,25 @@
         </div>
     </div>
     <div class="card-body">
-        <p class="fs-6 fw-light text-muted">
-            {{ $idea->content }}
-        </p>
+        @if ($editing ?? false)
+            <form method="post" action="{{ route('ideas.update', $idea->id) }}">
+                @csrf
+                @method('put')
+                <div class="mb-3">
+                    <textarea name="content" class="form-control" id="content" rows="3">{{ $idea->content }}</textarea>
+                    @error('content')
+                        <span class="d-block fs-6 text-danger mt-2"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="">
+                    <button type="submit" class="btn btn-dark mb-2"> Update </button>
+                </div>
+            </form>
+        @else
+            <p class="fs-6 fw-light text-muted">
+                {{ $idea->content }}
+            </p>
+        @endif
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
